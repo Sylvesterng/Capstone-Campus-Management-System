@@ -8,32 +8,32 @@
 </head>
 <body>
     <div class="container">
-    <h1>Volleyball Court</h1>
+        <h1>Volleyball Court</h1>
 
-    <div class="date-picker">
-        <label for="reservation-date" class="date-label">Choose Date:</label>
-        <input type="date" id="reservation-date" name="reservation-date" class="date-input">
-    </div>
+        <div class="date-picker">
+            <label for="reservation-date" class="date-label">Choose Date:</label>
+            <input type="date" id="reservation-date" name="reservation-date" class="date-input">
+        </div>
 
-    <h3>Choose Desired Court/Room</h3>
-    <div class="court-options">
-        <div class="court-btn" onclick="selectCourt(1)" id="court1">Court 1</div>
-        <div class="court-btn" onclick="selectCourt(2)" id="court2">Court 2</div>
-        <div class="court-btn" onclick="selectCourt(3)" id="court3">Court 3</div>
-        <div class="court-btn" onclick="selectCourt(4)" id="court4">Court 4</div>
-    </div>
+        <h3>Choose Desired Court/Room</h3>
+        <div class="court-options">
+            <div class="court-btn" onclick="selectCourt(1)" id="court1">Court 1</div>
+            <div class="court-btn" onclick="selectCourt(2)" id="court2">Court 2</div>
+            <div class="court-btn" onclick="selectCourt(3)" id="court3">Court 3</div>
+            <div class="court-btn" onclick="selectCourt(4)" id="court4">Court 4</div>
+        </div>
 
-    <h3>Choose Time Slot</h3>
-    <div class="time-slots">
-        <div class="time-btn" onclick="selectTime(1)" id="time1" data-slot="1">9.00 am - 10.59 am</div>
-        <div class="time-btn booked" onclick="selectTime(2)" id="time2" data-slot="2">11.00 am - 12.59 pm</div>
-        <div class="time-btn" onclick="selectTime(3)" id="time3" data-slot="3">1.00 pm - 2.59 pm</div>
-        <div class="time-btn" onclick="selectTime(4)" id="time4" data-slot="4">3.00 pm - 4.59 pm</div>
-    </div>
+        <h3>Choose Time Slot</h3>
+        <div class="time-slots">
+            <div class="time-btn" onclick="selectTime(1)" id="time1" data-slot="1">9.00 am - 10.59 am</div>
+            <div class="time-btn booked" onclick="selectTime(2)" id="time2" data-slot="2">11.00 am - 12.59 pm</div>
+            <div class="time-btn" onclick="selectTime(3)" id="time3" data-slot="3">1.00 pm - 2.59 pm</div>
+            <div class="time-btn" onclick="selectTime(4)" id="time4" data-slot="4">3.00 pm - 4.59 pm</div>
+        </div>
 
-    <div class="submit-button">
-        <button class="book-btn">Book Room/Court</button>
-    </div>
+        <div class="submit-button">
+            <button class="book-btn" onclick="bookCourt()">Book Room/Court</button>
+        </div>
     </div>
     <script>
         const dateInput = document.getElementById('reservation-date');
@@ -68,22 +68,24 @@
             const btns = document.querySelectorAll(".time-btn");
 
             btns.forEach(btn => {
-                if (btn.classList.contains("booked")) {
-                    btn.classList.remove("selected"); // Ensure it's not highlighted
-                } else {
-                    btn.classList.remove("selected");
-                    if (parseInt(btn.getAttribute("data-slot")) === timeSlot) {
-                        btn.classList.add("selected");
-                        selectedTime = timeSlot;
-                    }
-                }
+                btn.classList.remove("selected");
             });
+
+            const selectedBtn = document.querySelector(`.time-btn[data-slot="${timeSlot}"]`);
+
+            if (selectedBtn.classList.contains("booked")) {
+                selectedTime = null;
+                return;
+            }
+            
+            selectedBtn.classList.add("selected");
+            selectedTime = timeSlot;
         }
     
         function bookCourt() {
-            const date = document.getElementById("booking-date").value;
+            const date = document.getElementById("reservation-date").value;
             if (!selectedCourt || !selectedTime || !date) {
-                alert("Please select court, time slot, and date.");
+                alert("Please select date, court, and timeslot.");
                 return;
             }
     
