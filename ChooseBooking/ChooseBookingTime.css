@@ -1,0 +1,98 @@
+body {
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    background-color: #fff;
+    margin: 0;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .container {
+    max-width: 700px;
+    margin: auto;
+  }
+  
+  h1 {
+    margin-bottom: 20px;
+  }
+  
+  .date-picker {
+    margin-bottom: 30px;
+  }
+  
+  .choose-date {
+    padding: 10px 20px;
+    background-color: #ddd;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  .date-label {
+    font-size: 16px;
+    margin-right: 10px;
+    font-weight: bold;
+  }
+  
+  .date-input {
+    padding: 10px 15px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+  }
+  
+  .court-options{
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin: 15px 0 30px;
+  }
+  .time-slots {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    justify-items: stretch; /* Makes items fill the cell horizontally */
+    align-items: stretch;   /* Makes items fill the cell vertically */
+    margin: 15px auto 30px;
+    max-width: 600px;
+  }
+  
+  .court-btn,
+  .time-btn {
+    padding: 20px;
+    background-color: #ccc;
+    border: none;
+    border-radius: 8px;
+    min-width: 100px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  .court-btn:hover,
+  .time-btn:hover {
+    background-color: #44A1A0;
+    transform: scale(1.02);
+}
+
+  .court-btn.selected,
+  .time-btn.selected {
+    background-color: #78CDD7 !important;
+    color: white;
+    transform: scale(1.05);
+  }
+  
+  .time-btn.booked {
+    background-color: #8B0000;
+    color: #fff;
+  }
+  
+  .book-btn {
+    padding: 12px 30px;
+    background-color: #888;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+  }
