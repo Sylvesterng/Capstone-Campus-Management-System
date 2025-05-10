@@ -1,3 +1,10 @@
+<?php
+if ($_SERVER["REQUEST_METHOD"] != "POST" || !isset($_POST["courttype"])) {
+    header("Location: ChooseBookingType.php");
+    exit(); 
+}
+$courttype = $_POST["courttype"];
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +15,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>Volleyball Court</h1>
+        <h1><?php echo "$courttype"; ?></h1>
 
         <div class="date-picker">
             <label for="reservation-date" class="date-label">Choose Date:</label>

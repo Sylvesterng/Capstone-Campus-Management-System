@@ -23,8 +23,7 @@
                     <div class="card-content">
                         <h3 class="card-title">Basketball Court</h3>
                         <div class="card-footer">
-                            <a href="ChooseBookingTime.html" class="card-button">Book Now</a>
-                        </div>
+                        <a href="#" class="card-button" onclick="submitCourtType('Basketball Court')">Book Now</a>                              </div>
                     </div>
                 </div>
                 <!-- Card2 -->
@@ -36,7 +35,7 @@
                     <div class="card-content">
                         <h3 class="card-title">Volleyball Court</h3>
                         <div class="card-footer">
-                            <a href="ChooseBookingTime.html" class="card-button">Book Now</a>
+                            <a href="#" class="card-button" onclick="submitCourtType('Volleyball Court')">Book Now</a>
                         </div>
                     </div>
                 </div>
@@ -49,7 +48,7 @@
                     <div class="card-content">
                         <h3 class="card-title">Badminton Court</h3>
                         <div class="card-footer">
-                            <a href="ChooseBookingTime.html" class="card-button">Book Now</a>
+                            <a href="#" class="card-button" onclick="submitCourtType('Badminton Court')">Book Now</a>
                         </div>
                     </div>
                 </div>
@@ -62,7 +61,7 @@
                     <div class="card-content">
                         <h3 class="card-title">Meeting Room</h3>
                         <div class="card-footer">
-                            <a href="ChooseBookingTime.html" class="card-button">Book Now</a>
+                            <a href="#" class="card-button" onclick="submitCourtType('Meeting Room')">Book Now</a>
                         </div>
                     </div>
                 </div>
@@ -77,7 +76,16 @@
         </div>
     </div>
     </section>
+    <form id="quizForm" action="ChooseBookingTime.php" method="POST" style="display: none;">
+        <input type="hidden" name="courttype" id="courttype">
+    </form>
     
+    <script>
+        function submitCourtType(type) {
+            document.getElementById('courttype').value = type;
+            document.getElementById('quizForm').submit();
+        }
+    </script>
 
     <!-- Import Swipper JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
