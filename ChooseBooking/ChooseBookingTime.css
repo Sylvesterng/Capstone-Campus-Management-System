@@ -1,6 +1,7 @@
 body {
     font-family: 'Comic Sans MS', cursive, sans-serif;
-    background-color: #fff;
+    min-height: 100vh;
+    background: linear-gradient(#EFEFFF, #CCCBFF);
     margin: 0;
     padding: 20px;
     text-align: center;
