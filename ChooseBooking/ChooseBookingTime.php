@@ -46,14 +46,16 @@ $courttype = $_POST["courttype"];
         const dateInput = document.getElementById('reservation-date');
 
         const today = new Date();
+        const tomorrow = new Date();
         const nextWeek = new Date();
-        nextWeek.setDate(today.getDate() + 7);
+        tomorrow.setDate(today.getDate() + 1)
+        nextWeek.setDate(today.getDate() + 8);
 
         const formatDate = (date) => {
         return date.toISOString().split('T')[0];
         };
 
-        dateInput.min = formatDate(today);
+        dateInput.min = formatDate(tomorrow);
         dateInput.max = formatDate(nextWeek);
 
         dateInput.addEventListener('change', () => {
