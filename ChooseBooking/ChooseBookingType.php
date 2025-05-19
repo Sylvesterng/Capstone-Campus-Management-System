@@ -6,9 +6,66 @@
     <title>ChooseBookingType</title>
     <!-- Import Swipper CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="ChooseBookingType.css">
 </head>
 <body>
+    <header class="header">
+        <div class="left-group">
+            <div class="Logo hideOnMobile">
+                <div class="circle red"></div>
+                <div class="circle green"></div>
+                <div class="circle blue"></div>
+                <div class="umt-text">UMT</div>
+            </div>
+            <navbar class="navbar hideOnMobile">
+                <a href="#">Timetable</a>
+                <a href="#">Library</a>
+                <a href="#">Facility Reservation</a>
+                <a href="#">Transport Service</a>
+                <a href="#">Feedback</a>
+            </navbar>
+        </div>
+
+        <div class="menu-btn" onclick="showSidebar('.sidebar')">
+            <a href="#"><i class='bx bx-menu'></i></a>
+        </div>
+
+        <div class="right-group">
+          <div class="icon-wrapper">
+            <i class='bx bx-bell'></i>
+          </div>
+          <div class="icon-wrapper">
+            <i class='bx bx-cog'></i>
+          </div>
+          <a href="#" class="Profile icon-wrapper">
+            <img src="img-booking/profile.jpg" alt="User Profile">
+          </a>
+        </div>
+
+    </header>
+
+    <header class="sidebar">
+        <div class="close" onclick="hideSidebar('.sidebar')">
+            <i class='bx bx-x'></i>
+        </div>
+        <div class="Logo">
+            <div class="circle red"></div>
+            <div class="circle green"></div>
+            <div class="circle blue"></div>
+            <div class="umt-text">UMT</div>
+        </div>
+        <navbar class="navbar">
+            <a href="#">Timetable</a>
+            <a href="#">Library</a>
+            <a href="#">Facility Reservation</a>
+            <a href="#">Transport Service</a>
+            <a href="#">Feedback</a>
+        </navbar>
+    </header>
+
+    <div class="background"></div>
+
     <section class="ChooseBookingType">
     <!-- First Row -->
     <div class="container swiper">
@@ -92,5 +149,6 @@
 
     <!-- Linking Custom Script (Which we can customize the js code for swiper animation) -->
     <script src="ChooseBookingType.js"></script>
+    <script src="sidebar.js"></script>
 </body>
 </html>

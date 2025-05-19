@@ -11,36 +11,98 @@ $courttype = $_POST["courttype"];
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Reservation</title>
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <link rel="stylesheet" href="ChooseBookingTime.css">
 </head>
 <body>
+    <header class="header">
+        <div class="left-group">
+            <div class="Logo hideOnMobile">
+                <div class="circle red"></div>
+                <div class="circle green"></div>
+                <div class="circle blue"></div>
+                <div class="umt-text">UMT</div>
+            </div>
+            <navbar class="navbar hideOnMobile">
+                <a href="#">Timetable</a>
+                <a href="#">Library</a>
+                <a href="#">Facility Reservation</a>
+                <a href="#">Transport Service</a>
+                <a href="#">Feedback</a>
+            </navbar>
+        </div>
+
+        <div class="menu-btn" onclick="showSidebar('.sidebar')">
+            <a href="#"><i class='bx bx-menu'></i></a>
+        </div>
+
+        <div class="right-group">
+          <div class="icon-wrapper">
+            <i class='bx bx-bell'></i>
+          </div>
+          <div class="icon-wrapper">
+            <i class='bx bx-cog'></i>
+          </div>
+          <a href="#" class="Profile icon-wrapper">
+            <img src="img-booking/profile.jpg" alt="User Profile">
+          </a>
+        </div>
+
+    </header>
+
+    <header class="sidebar">
+        <div class="close" onclick="hideSidebar('.sidebar')">
+            <i class='bx bx-x'></i>
+        </div>
+        <div class="Logo">
+            <div class="circle red"></div>
+            <div class="circle green"></div>
+            <div class="circle blue"></div>
+            <div class="umt-text">UMT</div>
+        </div>
+        <navbar class="navbar">
+            <a href="#">Timetable</a>
+            <a href="#">Library</a>
+            <a href="#">Facility Reservation</a>
+            <a href="#">Transport Service</a>
+            <a href="#">Feedback</a>
+        </navbar>
+    </header>
+
+    <div class="background"></div>
+    
+
+
     <div class="container">
-        <h1><?php echo "$courttype"; ?></h1>
+        <div class="content-box">
+            <h1><?php echo "$courttype"; ?></h1>
 
-        <div class="date-picker">
-            <label for="reservation-date" class="date-label">Choose Date:</label>
-            <input type="date" id="reservation-date" name="reservation-date" class="date-input">
-        </div>
+            <div class="date-picker">
+                <label for="reservation-date" class="date-label">Choose Date:</label>
+                <input type="date" id="reservation-date" name="reservation-date" class="date-input">
+            </div>
 
-        <h3>Choose Desired Court/Room</h3>
-        <div class="court-options">
-            <div class="court-btn" onclick="selectCourt(1)" id="court1">Court 1</div>
-            <div class="court-btn" onclick="selectCourt(2)" id="court2">Court 2</div>
-            <div class="court-btn" onclick="selectCourt(3)" id="court3">Court 3</div>
-            <div class="court-btn" onclick="selectCourt(4)" id="court4">Court 4</div>
-        </div>
+            <h3>Choose Desired Court/Room</h3>
+            <div class="court-options">
+                <div class="court-btn" onclick="selectCourt(1)" id="court1">Court 1</div>
+                <div class="court-btn" onclick="selectCourt(2)" id="court2">Court 2</div>
+                <div class="court-btn" onclick="selectCourt(3)" id="court3">Court 3</div>
+                <div class="court-btn" onclick="selectCourt(4)" id="court4">Court 4</div>
+            </div>
 
-        <h3>Choose Time Slot</h3>
-        <div class="time-slots">
-            <div class="time-btn" onclick="selectTime(1)" id="time1" data-slot="1">9.00 am - 10.59 am</div>
-            <div class="time-btn booked" onclick="selectTime(2)" id="time2" data-slot="2">11.00 am - 12.59 pm</div>
-            <div class="time-btn" onclick="selectTime(3)" id="time3" data-slot="3">1.00 pm - 2.59 pm</div>
-            <div class="time-btn" onclick="selectTime(4)" id="time4" data-slot="4">3.00 pm - 4.59 pm</div>
-        </div>
+            <h3>Choose Time Slot</h3>
+            <div class="time-slots">
+                <div class="time-btn" onclick="selectTime(1)" id="time1" data-slot="1">9.00 am - 10.59 am</div>
+                <div class="time-btn booked" onclick="selectTime(2)" id="time2" data-slot="2">11.00 am - 12.59 pm</div>
+                <div class="time-btn" onclick="selectTime(3)" id="time3" data-slot="3">1.00 pm - 2.59 pm</div>
+                <div class="time-btn" onclick="selectTime(4)" id="time4" data-slot="4">3.00 pm - 4.59 pm</div>
+            </div>
 
-        <div class="submit-button">
-            <button class="book-btn" onclick="bookCourt()">Book Room/Court</button>
+            <div class="submit-button">
+                <button class="book-btn" onclick="bookCourt()">Book Room/Court</button>
+            </div>
         </div>
+        
     </div>
     <script>
         const dateInput = document.getElementById('reservation-date');
@@ -102,6 +164,7 @@ $courttype = $_POST["courttype"];
             // Here, you can submit a form or make a fetch() request
         }
     </script>
+    <script src="sidebar.js"></script>
 
 </body>
 </html>
