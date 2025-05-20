@@ -3,13 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ChooseBookingType</title>
-    <!-- Import Swipper CSS -->
+    <title>HomePage</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="ChooseBookingType.css">
 </head>
-<body>
+<body class="lightmode">
+
+    <div class="background-overlay"></div>
+
     <header class="header">
         <div class="left-group">
             <div class="Logo hideOnMobile">
@@ -18,13 +20,13 @@
                 <div class="circle blue"></div>
                 <div class="umt-text">UMT</div>
             </div>
-            <navbar class="navbar hideOnMobile">
+            <nav class="navbar hideOnMobile">
                 <a href="#">Timetable</a>
                 <a href="#">Library</a>
                 <a href="#">Facility Reservation</a>
                 <a href="#">Transport Service</a>
                 <a href="#">Feedback</a>
-            </navbar>
+            </nav>
         </div>
 
         <div class="menu-btn" onclick="showSidebar('.sidebar')">
@@ -32,17 +34,16 @@
         </div>
 
         <div class="right-group">
-          <div class="icon-wrapper">
-            <i class='bx bx-bell'></i>
-          </div>
-          <div class="icon-wrapper">
-            <i class='bx bx-cog'></i>
-          </div>
-          <a href="#" class="Profile icon-wrapper">
-            <img src="img-booking/profile.jpg" alt="User Profile">
-          </a>
+            <div class="icon-wrapper">
+                <i class='bx bx-bell'></i>
+            </div>
+            <div class="icon-wrapper themeToggle">
+                <i id="theme" class='bx bx-sun'></i> 
+            </div>
+            <a href="#" class="Profile icon-wrapper">
+                <img src="img-booking/profile.jpg" alt="User Profile">
+            </a>
         </div>
-
     </header>
 
     <header class="sidebar">
@@ -55,17 +56,14 @@
             <div class="circle blue"></div>
             <div class="umt-text">UMT</div>
         </div>
-        <navbar class="navbar">
+        <nav class="navbar">
             <a href="#">Timetable</a>
             <a href="#">Library</a>
             <a href="#">Facility Reservation</a>
             <a href="#">Transport Service</a>
             <a href="#">Feedback</a>
-        </navbar>
+        </nav>
     </header>
-
-    <div class="background"></div>
-
     <section class="ChooseBookingType">
     <!-- First Row -->
     <div class="container swiper">
@@ -149,6 +147,7 @@
 
     <!-- Linking Custom Script (Which we can customize the js code for swiper animation) -->
     <script src="ChooseBookingType.js"></script>
-    <script src="sidebar.js"></script>
+
+    <script src="template.js"></script>
 </body>
 </html>
