@@ -1,5 +1,5 @@
 :root{
-    --background: url('img-booking/LoginBackground2.jpg') no-repeat center center fixed;
+    --background: url('img-feedback/LoginBackground2.jpg') no-repeat center center fixed;
     --backgroundBlur:rgba(142, 143, 145, 0.492);
     --navbar-color:rgba(255, 255, 255, 0.3);
     --Logo-Red:red;
@@ -14,7 +14,7 @@
 }
 
 .lightmode{
-    --background: url('img-booking/LoginBackground2.jpg') no-repeat center center fixed;
+    --background: url('img-feedback/LoginBackground2.jpg') no-repeat center center fixed;
     --backgroundBlur:rgba(142, 143, 145, 0.492);
     --navbar-color:rgba(176, 176, 176, 0.3);
     --Logo-Red:red;
@@ -29,7 +29,7 @@
 }
 
 .darkmode{
-    --background: url('img-booking/LoginBackground.avif') no-repeat center center fixed;
+    --background: url('img-feedback/LoginBackground.avif') no-repeat center center fixed;
     --backgroundBlur:rgba(67, 74, 88, 0.6);
     --navbar-color:rgba(107, 107, 107, 0.3);
     --Logo-Red:red;
@@ -295,119 +295,89 @@ body,
     transition: background 0.5s ease, background-color 0.5s ease;
 }
 
-/*-------------main content------------------*/
+/*------------------Main Content------------------*/
 
-
-.container {
-    width: 700px;
-    margin: 120px auto 0 auto;
-    justify-content: center;
-    align-items: center;
-}
-
-.content-box{
-    background-color: rgba(255, 255, 255, 0.15);
-    border-radius: 20px;
-    padding: 10px;
-}
-
-h1 {
-    margin-bottom: 20px;
-    color: var(--Text);
-}
-h3{
-    color: var(--Text);
-}
-
-.date-picker {
-    margin-bottom: 20px;
-}
-
-.choose-date {
-    padding: 10px 20px;
-    background-color: #ddd;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    cursor: pointer;
-}
-.date-label {
-    font-size: 16px;
-    margin-right: 10px;
-    font-weight: bold;
-    color: var(--Text);
-}
-
-.date-input {
-    padding: 10px 15px;
-    font-size: 16px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    cursor: pointer;
-}
-
-.court-options{
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    flex-wrap: wrap;
-    margin: 15px 0 30px;
-}
-.time-slots {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-    justify-items: stretch; /* Makes items fill the cell horizontally */
-    align-items: stretch;   /* Makes items fill the cell vertically */
-    margin: 15px auto 30px;
+.feedback-container {
+    background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 12px;
+    padding: 30px 40px;
     max-width: 600px;
+    width: 100%;
+    margin-top: 100px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
 }
 
-.court-btn,
-.time-btn {
-    padding: 20px;
-    background-color: #ccc;
-    border: none;
-    border-radius: 8px;
-    min-width: 100px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
-.court-btn:hover,
-.time-btn:hover {
-    background-color: #44A1A0;
-    transform: scale(1.02);
-}
-
-.court-btn.selected,
-.time-btn.selected {
-    background-color: #78CDD7 !important;
-    color: white;
-    transform: scale(1.05);
-}
-
-.time-btn.booked {
-    background-color: #8B0000;
-    color: #fff;
-}
-
-.book-btn {
-    padding: 12px 30px;
-    background-color: #888;
-    color: var(--Text);
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    cursor: pointer;
+.feedback-container h2 {
+    font-size: 24px;
     margin-bottom: 20px;
+    text-align: left;
 }
 
+.feedback-form .form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
 
+.feedback-form label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 6px;
+    color: var(--Text);
+}
 
+.feedback-form span {
+    display: inline-block;
+    margin-top: 6px;
+    color: var(--Text);
+}
 
+.feedback-form input[type="text"],
+.feedback-form textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #aaa;
+    font-size: 16px;
+    resize: none;
+}
 
+.feedback-type {
+    display: flex;
+    gap: 10px;
+}
 
+.type-btn {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    background-color: #ccc;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.type-btn.active {
+    background-color: #888;
+    color: white;
+}
+
+.submit-btn {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 8px;
+    background-color: #888;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover {
+    background-color: #666;
+}
 
 
 
