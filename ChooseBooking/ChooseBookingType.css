@@ -409,7 +409,7 @@ body,
     display: block;               
     text-align: center;  
     width: 100%;
-    color:var(--Text);
+    color:#e4e4e4;
     padding: 10px 20px;
     border-radius: 30px;
     font-size: 0.81rem;
