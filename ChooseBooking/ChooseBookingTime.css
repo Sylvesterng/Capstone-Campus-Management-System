@@ -409,12 +409,7 @@ h3{
 
 
 
-
-
-
-
-
-@media screen and (max-width:650px){
+@media screen and (max-width:600px){
     .hideOnMobile{
         display:none;
     }
@@ -434,5 +429,25 @@ h3{
     }
 
 
+
+}
+@media screen and (max-width:820px){
+    .hideOnMobile{
+        display:none;
+    }
+
+    .menu-btn{
+        position: absolute;
+        display:block;
+        top:20px;
+        left: 20px;
+    }
+
+    .menu-btn a{
+        text-decoration: none;
+        color: var(--Mobile-Menu-btn);
+        font-size:40px;
+        transition: 0.5s ease;
+    }
 
 }

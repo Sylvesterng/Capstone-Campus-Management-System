@@ -141,7 +141,16 @@
             document.getElementById('quizForm').submit();
         }
     </script>
-
+    <!-- Reload Page When Screen Size Change -->
+    <script>
+        let resizeTimeout;
+        window.addEventListener('resize', function () {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(function () {
+                location.reload();
+            }, 500); // reload 500ms after the user stops resizing
+        });
+    </script>
     <!-- Import Swipper JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
