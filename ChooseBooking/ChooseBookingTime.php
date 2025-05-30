@@ -4,6 +4,23 @@ if ($_SERVER["REQUEST_METHOD"] != "POST" || !isset($_POST["courttype"])) {
     exit(); 
 }
 $courttype = $_POST["courttype"];
+$map = [
+    "Badminton Court" => "badminton",
+    "Basketball Court" => "basketball",
+    "Meeting Room" => "meetingroom",
+    "Volleyball Court" => "volleyball"
+];
+$pageTypeKey = $map[$courttype];
+include "connection.php";
+
+$query1 = "SELECT booking_slot1.Slot1_ID,booking_slot1.FacilityID,facility_information.Type,booking_slot1.Day FROM booking_slot1 JOIN facility_information ON booking_slot1.FacilityID = facility_information.FacilityID WHERE facility_information.Type = '$courttype'" ;
+$query2 = "SELECT booking_slot2.Slot2_ID,booking_slot2.FacilityID,facility_information.Type,booking_slot2.Day FROM booking_slot2 JOIN facility_information ON booking_slot2.FacilityID = facility_information.FacilityID WHERE facility_information.Type = '$courttype'" ;
+$query3 = "SELECT booking_slot3.Slot3_ID,booking_slot3.FacilityID,facility_information.Type,booking_slot3.Day FROM booking_slot3 JOIN facility_information ON booking_slot3.FacilityID = facility_information.FacilityID WHERE facility_information.Type = '$courttype'" ;
+$query4 = "SELECT booking_slot4.Slot4_ID,booking_slot4.FacilityID,facility_information.Type,booking_slot4.Day FROM booking_slot4 JOIN facility_information ON booking_slot4.FacilityID = facility_information.FacilityID WHERE facility_information.Type = '$courttype'" ;
+
+$results = mysqli_query($connection,$query1);
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -86,22 +103,30 @@ $courttype = $_POST["courttype"];
                 <div class="court-btn" onclick="selectCourt(3)" id="court3">Court 3</div>
                 <div class="court-btn" onclick="selectCourt(4)" id="court4">Court 4</div>
             </div>
+            <div id="time-section" style="display: none;">
+                <h3>Choose Time Slot</h3>
+                <div class="time-slots">
+                    <div class="time-btn" onclick="selectTime(1)" id="time1" data-slot="1">9.00 am - 10.59 am</div>
+                    <div class="time-btn" onclick="selectTime(2)" id="time2" data-slot="2">11.00 am - 12.59 pm</div>
+                    <div class="time-btn" onclick="selectTime(3)" id="time3" data-slot="3">1.00 pm - 2.59 pm</div>
+                    <div class="time-btn" onclick="selectTime(4)" id="time4" data-slot="4">3.00 pm - 4.59 pm</div>
+                </div>
 
-            <h3>Choose Time Slot</h3>
-            <div class="time-slots">
-                <div class="time-btn" onclick="selectTime(1)" id="time1" data-slot="1">9.00 am - 10.59 am</div>
-                <div class="time-btn booked" onclick="selectTime(2)" id="time2" data-slot="2">11.00 am - 12.59 pm</div>
-                <div class="time-btn" onclick="selectTime(3)" id="time3" data-slot="3">1.00 pm - 2.59 pm</div>
-                <div class="time-btn" onclick="selectTime(4)" id="time4" data-slot="4">3.00 pm - 4.59 pm</div>
+                <div class="submit-button">
+                    <button class="book-btn" onclick="bookCourt()">Book Room/Court</button>
+                </div>
             </div>
-
-            <div class="submit-button">
-                <button class="book-btn" onclick="bookCourt()">Book Room/Court</button>
-            </div>
+            <form id="booking-form" action="SubmitBooking.php" method="POST" style="display:none;">
+                <input type="hidden" name="date" id="input-date" value="">
+                <input type="hidden" name="court" id="input-court" value="">
+                <input type="hidden" name="timeslot" id="input-timeslot" value="">
+            </form>
         </div>
         
     </div>
     <script>
+        let dayOfWeek = "";
+        let courtCode = "";
         const dateInput = document.getElementById('reservation-date');
 
         const today = new Date();
@@ -116,13 +141,40 @@ $courttype = $_POST["courttype"];
 
         dateInput.min = formatDate(tomorrow);
         dateInput.max = formatDate(nextWeek);
+        
+        function getDayOfWeek(dateString) {
+            const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+            const date = new Date(dateString);
+            return days[date.getDay()];
+        }
+
 
         dateInput.addEventListener('change', () => {
-        const selectedDate = dateInput.value;
-        console.log("Selected date:", selectedDate);
+            const selectedDate = dateInput.value;
+            const selectedDay = new Date(selectedDate).getDay();
+            if (selectedDay === 0 || selectedDay === 6) {
+                alert("Weekends are not allowed. Please choose a weekday.");
+                dateInput.value = ""; // clear invalid selection
+                inputDate.value = "";
+                return;
+            }
+            inputDate.value = selectedDate;
+            dayOfWeek = getDayOfWeek(selectedDate);
+            console.log("Selected date:", selectedDate);
+            updateTimeSectionVisibility();
+            checkBookedTimes(courtCode, dayOfWeek);
         });
-    </script>
-    <script>
+
+        const pageType = "<?php echo $pageTypeKey; ?>"; // e.g. "volleyball"
+        const courtIdMap = {
+            badminton: ["BD-01", "BD-02", "BD-03", "BD-04"],
+            basketball: ["BK-01", "BK-02", "BK-03", "BK-04"],
+            meetingroom: ["MR-01", "MR-02", "MR-03", "MR-04"],
+            volleyball: ["VB-01", "VB-02", "VB-03", "VB-04"]
+        };
+        const inputCourt = document.getElementById('input-court');
+        const inputTimeslot = document.getElementById('input-timeslot');
+        const inputDate = document.getElementById('input-date');
         let selectedCourt = null;
         let selectedTime = null;
     
@@ -130,8 +182,64 @@ $courttype = $_POST["courttype"];
             selectedCourt = courtId;
             document.querySelectorAll(".court-btn").forEach(btn => btn.classList.remove("selected"));
             document.getElementById(`court${courtId}`).classList.add("selected");
+            
+            courtCode = courtIdMap[pageType][courtId - 1];
+
+            inputCourt.value = courtCode;
+            updateTimeSectionVisibility();
+            checkBookedTimes(courtCode, dayOfWeek);
         }
-    
+
+        function updateTimeSectionVisibility() {
+            const dateSelected = dateInput.value !== "";
+            const courtSelected = selectedCourt !== null;
+            const timeSection = document.getElementById("time-section");
+            
+            if (dateSelected && courtSelected) {
+                timeSection.style.display = "block";
+            } else {
+                timeSection.style.display = "none";
+            }
+        }
+
+        function checkBookedTimes(courtCode, dayOfWeek) {
+            selectedTime = null;
+            inputTimeslot.value = "";
+            // Example: call your PHP script, passing courtCode and dayOfWeek via query string
+            fetch(`CheckBookingSlot.php?facility=${encodeURIComponent(courtCode)}&day=${encodeURIComponent(dayOfWeek)}`)
+            .then(res => res.json())
+            .then(data => {
+                // Reset all buttons first
+                document.querySelectorAll(".time-btn").forEach(btn => {
+                    btn.classList.remove("booked");
+                    btn.style.pointerEvents = "auto";   // enable clicking
+                    btn.onclick = () => selectTime(parseInt(btn.dataset.slot));
+                    btn.classList.remove("selected");
+                });
+
+                // data will be an object like { BookTableSlot1: true/false, ... }
+                // Map booking slot keys to time button IDs (assuming slot1 = time1, etc)
+                const slotToTimeId = {
+                    "BookTableSlot1": "time1",
+                    "BookTableSlot2": "time2",
+                    "BookTableSlot3": "time3",
+                    "BookTableSlot4": "time4"
+                };
+
+                for (const [slot, isBooked] of Object.entries(data)) {
+                    if (isBooked) {
+                        const timeBtn = document.getElementById(slotToTimeId[slot]);
+                        if (timeBtn) {
+                            timeBtn.classList.add("booked");
+                        }
+                    }
+                }
+            })
+            .catch(err => console.error("Error fetching booking slots:", err));
+        }   
+
+
+
         function selectTime(timeSlot) {
             const btns = document.querySelectorAll(".time-btn");
 
@@ -143,11 +251,13 @@ $courttype = $_POST["courttype"];
 
             if (selectedBtn.classList.contains("booked")) {
                 selectedTime = null;
+                inputTimeslot.value = "";
                 return;
             }
 
             selectedBtn.classList.add("selected");
             selectedTime = timeSlot;
+            inputTimeslot.value = timeSlot;
         }
     
         function bookCourt() {
@@ -156,9 +266,10 @@ $courttype = $_POST["courttype"];
                 alert("Please select date, court, and timeslot.");
                 return;
             }
+            inputDate.value = date;
     
             alert(`Booking confirmed:\nCourt ${selectedCourt}\nTime: ${selectedTime}\nDate: ${date}`);
-            // Here, you can submit a form or make a fetch() request
+            document.getElementById("booking-form").submit();
         }
     </script>
 
