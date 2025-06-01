@@ -1,3 +1,9 @@
+<?php
+include "connection.php";
+include 'cleanup_expired_bookings.php';
+
+deleteExpiredBookings($connection);
+?>
 
 <!DOCTYPE html>
 <html lang="en">

@@ -12,6 +12,9 @@ $map = [
 ];
 $pageTypeKey = $map[$courttype];
 include "connection.php";
+include 'cleanup_expired_bookings.php';
+
+deleteExpiredBookings($connection);
 
 $query1 = "SELECT booking_slot1.Slot1_ID,booking_slot1.FacilityID,facility_information.Type,booking_slot1.Day FROM booking_slot1 JOIN facility_information ON booking_slot1.FacilityID = facility_information.FacilityID WHERE facility_information.Type = '$courttype'" ;
 $query2 = "SELECT booking_slot2.Slot2_ID,booking_slot2.FacilityID,facility_information.Type,booking_slot2.Day FROM booking_slot2 JOIN facility_information ON booking_slot2.FacilityID = facility_information.FacilityID WHERE facility_information.Type = '$courttype'" ;
@@ -120,6 +123,7 @@ $results = mysqli_query($connection,$query1);
                 <input type="hidden" name="date" id="input-date" value="">
                 <input type="hidden" name="court" id="input-court" value="">
                 <input type="hidden" name="timeslot" id="input-timeslot" value="">
+                <input type="hidden" name="day" id="input-day" value="">
             </form>
         </div>
         
@@ -128,6 +132,7 @@ $results = mysqli_query($connection,$query1);
         let dayOfWeek = "";
         let courtCode = "";
         const dateInput = document.getElementById('reservation-date');
+        const inputDay = document.getElementById('input-day');
 
         const today = new Date();
         const tomorrow = new Date();
@@ -156,10 +161,12 @@ $results = mysqli_query($connection,$query1);
                 alert("Weekends are not allowed. Please choose a weekday.");
                 dateInput.value = ""; // clear invalid selection
                 inputDate.value = "";
+                inputDay.value = "";
                 return;
             }
             inputDate.value = selectedDate;
             dayOfWeek = getDayOfWeek(selectedDate);
+            inputDay.value = dayOfWeek; // update date
             console.log("Selected date:", selectedDate);
             updateTimeSectionVisibility();
             checkBookedTimes(courtCode, dayOfWeek);

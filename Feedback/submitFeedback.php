@@ -66,14 +66,16 @@
 
     <main class="feedback-container">
         <h2>Submit Feedback</h2>
-        <form class="feedback-form">
+        <form class="feedback-form" id="feedback-form" action="SubmitFeedbackHandler.php" method="POST">
             <div class="form-group">
                 <label>Email:</label>
                 <span>XXX@ggmail</span>
+                <input type="hidden" name="email" value="XXX@ggmail.com">
             </div>
             <div class="form-group">
                 <label>UserID:</label>
                 <span>TP076143</span>
+                <input type="hidden" name="userID" value="TP076143">
             </div>
             <div class="form-group">
                 <label for="contact">Contact Number:</label>
@@ -85,6 +87,7 @@
                     <button type="button" class="type-btn active" onclick="selectType(this)">Suggestion</button>
                     <button type="button" class="type-btn" onclick="selectType(this)">Complaint</button>
                 </div>
+                <input type="hidden" id="feedbackType" name="feedbackType" value="Suggestion">
             </div>
             <div class="form-group">
                 <label for="description">Description:</label>
@@ -92,6 +95,7 @@
             </div>
             <button type="submit" class="submit-btn">Submit</button>
         </form>
+
     </main>
 
 
@@ -107,6 +111,7 @@
         function selectType(button) {
             document.querySelectorAll('.type-btn').forEach(btn => btn.classList.remove('active'));
             button.classList.add('active');
+            document.getElementById('feedbackType').value = button.textContent.trim();
         }
     </script>
 
